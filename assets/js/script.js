@@ -14,11 +14,15 @@ function generatePassword(){
 
   //prompt user for length of password (must be at least 8 and no more than 128)
   var promptLength = window.prompt("How many characters would you like your password to contain?");
+  promptLength.trim();
+  promtpLength = parseInt(promptLength);
 
   // while the prompt is out of the scope, keep prompting
   while(promptLength < 8 || promptLength > 128){
     window.alert("Bad length. Please provide a number between 8 and 128 inclusive");
     promptLength = window.prompt("How many characters would you like your password to contain?");
+    promptLength.trim();
+    promptLength = parseInt(promptLength);
   }
 
 
@@ -129,6 +133,10 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
+
+  // clears password variables in case user doesn't click clear button before generating a new password
+  passCreate = "";
+  password = "";
 };
 
 // Add event listener to generate button
