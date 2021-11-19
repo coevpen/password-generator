@@ -59,24 +59,24 @@ function generatePassword(){
     passCreate += passSet[(Math.floor(Math.random() * passSet.length))];
   }
 
-    /* prompt user for special characters
-      if true, randomly choose special characters
-    */
-    var confirmChar = window.confirm("Click OK to confirm including special characters");
-    if(confirmChar){
-      passSet = passSet.concat(charSet);
-    }
+  /* prompt user for special characters
+    if true, randomly choose special characters
+  */
+  var confirmChar = window.confirm("Click OK to confirm including special characters");
+  if(confirmChar){
+    passSet = passSet.concat(charSet);
+  }
 
-      // cycle through the passSet to add random characters to create the password
-      for(var i = 0; i < promptLength; i++){
-      passCreate += passSet[(Math.floor(Math.random() * passSet.length))];
-    }
+  // cycle through the passSet to add random characters to create the password
+  for(var i = 0; i < promptLength; i++){
+    passCreate += passSet[(Math.floor(Math.random() * passSet.length))];
+  }
 
-    // we want to check if at least one of each criteria is met in the final password, if not, fix it so there is
-    passCreate = checkCriteria(passCreate, confirmChar, confirmLowercase, confirmUppercase, confirmNum, promptLength);
+  // we want to check if at least one of each criteria is met in the final password, if not, fix it so there is
+  passCreate = checkCriteria(passCreate, confirmChar, confirmLowercase, confirmUppercase, confirmNum, promptLength);
 
-    //return the created password 
-    return passCreate;
+  //return the created password 
+  return passCreate;
 };
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
