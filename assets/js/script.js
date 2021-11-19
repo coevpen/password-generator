@@ -73,10 +73,10 @@ function generatePassword(){
   }
 
   // we want to check if at least one of each criteria is met in the final password, if not, fix it so there is
-  passCreate = checkCriteria(passCreate, confirmChar, confirmLowercase, confirmUppercase, confirmNum, promptLength);
+  var passCheck = checkCriteria(passCreate, confirmChar, confirmLowercase, confirmUppercase, confirmNum, promptLength);
 
   //return the created password 
-  return passCreate;
+  return passCheck;
 };
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
@@ -85,22 +85,28 @@ function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUpperc
   // empty string in case a new password needs to be written
   var passNew = "";
 
+  console.log("old pass coming in: " + passCreated);
+
   // checks for at least one of the cirteria needed, if none exist, creates a new password that does
   if(confirmChar && !(charSet.some(v => passCreated.includes(v)))){
     passNew += charSet[(Math.floor(Math.random() * charSet.length))];
+    console.log("new pass in char: " + passNew);
   }
   else if(confirmNum && !(numSet.some(v => passCreated.includes(v)))){
     passNew += numSet[(Math.floor(Math.random() * numSet.length))]; 
+    console.log("new pass in num: " + passNew);
   }
   else  if(confirmLowercase && !(lowerSet.some(v => passCreated.includes(v)))){
     passNew += lowerSet[(Math.floor(Math.random() * lowerSet.length))];
+    console.log("new pass in lower: " + passNew);
   }
   else if(confirmUppercase && !(upperSet.some(v => passCreated.includes(v)))){
     passNew += upperSet[(Math.floor(Math.random() * upperSet.length))];
+    console.log("new pass in upper: " + passNew);
   }
   else {
     // returns original password as it has at least oen of all criteria picked
-    console.log("returning original password");
+    console.log("returning original password: " + passCreated);
     return passCreated;
   }
   
