@@ -15,35 +15,49 @@ function generatePassword(){
   //prompt user for length of password (must be at least 8 and no more than 128)
   var promptLength = window.prompt("How many characters would you like your password to contain?");
 
-  if(promptLength < 8 || promptLength > 128){
+  // while the prompt is out of the scope, keep prompting
+  while(promptLength < 8 || promptLength > 128){
     window.alert("Bad length. Please provide a number between 8 and 128 inclusive");
-    generatePassword();
+    promptLength = window.prompt("How many characters would you like your password to contain?");
   }
-  else{
 
-    /* prompt user if they wish to include Uppercase letters
-      if true, add uppercase letters to the password set
-    */
-    var confirmUppercase = window.confirm("Click OK to confirm including uppercase letters");
-    if(confirmUppercase){
-      passSet = passSet.concat(upperSet);
-    }
 
-    /* prompt user for lowercase letters
-      if true, add lowercase letters to the password set
-    */
-    var confirmLowercase = window.confirm("Click OK to confirm including lowercase letters");
-    if(confirmLowercase){
-      passSet = passSet.concat(lowerSet);
-    }
+  /* prompt user if they wish to include Uppercase letters
+    if true, add uppercase letters to the password set
+  */
+  var confirmUppercase = window.confirm("Click OK to confirm including uppercase letters");
+  if(confirmUppercase){
+    passSet = passSet.concat(upperSet);
+  }
 
-    /* prompt user for numbers
-    if true, add numbers to password set
-    */
-    var confirmNum = window.confirm("Click OK to confirm including numeric characters");
-    if(confirmNum){
-      passSet = passSet.concat(numSet);
-    }
+  /* prompt user for lowercase letters
+    if true, add lowercase letters to the password set
+  */
+  var confirmLowercase = window.confirm("Click OK to confirm including lowercase letters");
+  if(confirmLowercase){
+    passSet = passSet.concat(lowerSet);
+  }
+
+  /* prompt user for numbers
+  if true, add numbers to password set
+  */
+  var confirmNum = window.confirm("Click OK to confirm including numeric characters");
+  if(confirmNum){
+    passSet = passSet.concat(numSet);
+  }
+
+  /* prompt user for special characters
+    if true, randomly choose special characters
+  */
+  var confirmChar = window.confirm("Click OK to confirm including special characters");
+  if(confirmChar){
+    passSet = passSet.concat(charSet);
+  }
+
+  // cycle through the passSet to add random characters to create the password
+  for(var i = 0; i < promptLength; i++){
+    passCreate += passSet[(Math.floor(Math.random() * passSet.length))];
+  }
 
     /* prompt user for special characters
       if true, randomly choose special characters
@@ -68,11 +82,11 @@ function generatePassword(){
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
 function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength){
-  // empty string in case a new password needs to be written
+  // empty string in case a new passwords needs to be written
   var passNew = "";
 
 
-  // checks for at least one of the criteria needed, if none exist, creates new password
+  // checks for at least one of the cirteria needed, if none exist, creates a new password that does
   if(confirmChar && !(charSet.some(v => passCreated.includes(v)))){
     passNew += charSet[(Math.floor(Math.random() * charSet.length))];
   }
@@ -86,7 +100,8 @@ function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUpperc
     passNew += upperSet[(Math.floor(Math.random() * upperSet.length))];
   }
   else {
-    // else returns original password as it has at least one of all criteria picked
+    // returns original password as it has at least oen of all criteria picked
+    console.log("returning original password");
     return passCreated;
   }
   
@@ -95,8 +110,8 @@ function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUpperc
     for(var i = passNew.length; i < userLength; i++){
       passNew += passSet[(Math.floor(Math.random() * passSet.length))];
     }
-    // recursive call to ensure newly created password meets at least one of each criteria chosen
-    checkCriteria(passNew, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength);
+    // recursive call to ensure newly created password meets at least one of the each criteria chosen
+    checkCriteria(passNew, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength)
   }
  return passNew;
 };
