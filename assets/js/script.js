@@ -14,54 +14,56 @@ function generatePassword(){
 
   //prompt user for length of password (must be at least 8 and no more than 128)
   var promptLength = window.prompt("How many characters would you like your password to contain?");
+
   if(promptLength < 8 || promptLength > 128){
     window.alert("Bad length. Please provide a number between 8 and 128 inclusive");
     generatePassword();
   }
- 
+  else{
 
-  /* prompt user if they wish to include Uppercase letters
-    if true, add uppercase letters to the password set
-  */
- var confirmUppercase = window.confirm("Click OK to confirm including uppercase letters");
- if(confirmUppercase){
-   passSet = passSet.concat(upperSet);
- }
+    /* prompt user if they wish to include Uppercase letters
+      if true, add uppercase letters to the password set
+    */
+    var confirmUppercase = window.confirm("Click OK to confirm including uppercase letters");
+    if(confirmUppercase){
+      passSet = passSet.concat(upperSet);
+    }
 
-  /* prompt user for lowercase letters
-    if true, add lowercase letters to the password set
-  */
- var confirmLowercase = window.confirm("Click OK to confirm including lowercase letters");
- if(confirmLowercase){
-   passSet = passSet.concat(lowerSet);
- }
+    /* prompt user for lowercase letters
+      if true, add lowercase letters to the password set
+    */
+    var confirmLowercase = window.confirm("Click OK to confirm including lowercase letters");
+    if(confirmLowercase){
+      passSet = passSet.concat(lowerSet);
+    }
 
-  /* prompt user for numbers
-  if true, add numbers to password set
-  */
- var confirmNum = window.confirm("Click OK to confirm including numeric characters");
- if(confirmNum){
-   passSet = passSet.concat(numSet);
- }
+    /* prompt user for numbers
+    if true, add numbers to password set
+    */
+    var confirmNum = window.confirm("Click OK to confirm including numeric characters");
+    if(confirmNum){
+      passSet = passSet.concat(numSet);
+    }
 
-  /* prompt user for special characters
-    if true, randomly choose special characters
-  */
- var confirmChar = window.confirm("Click OK to confirm including special characters");
- if(confirmChar){
-   passSet = passSet.concat(charSet);
- }
+    /* prompt user for special characters
+      if true, randomly choose special characters
+    */
+    var confirmChar = window.confirm("Click OK to confirm including special characters");
+    if(confirmChar){
+      passSet = passSet.concat(charSet);
+    }
 
-    // cycle through the passSet to add random characters to create the password
-    for(var i = 0; i < promptLength; i++){
-    passCreate += passSet[(Math.floor(Math.random() * passSet.length))];
+      // cycle through the passSet to add random characters to create the password
+      for(var i = 0; i < promptLength; i++){
+      passCreate += passSet[(Math.floor(Math.random() * passSet.length))];
+    }
+
+    // we want to check if at least one of each criteria is met in the final password, if not, fix it so there is
+    passCreate = checkCriteria(passCreate, confirmChar, confirmLowercase, confirmUppercase, confirmNum, promptLength);
+
+    //return the created password 
+    return passCreate;
   }
-
-  // we want to check if at least one of each criteria is met in the final password, if not, fix it so there is
-  passCreate = checkCriteria(passCreate, confirmChar, confirmLowercase, confirmUppercase, confirmNum, promptLength);
-
-  //return the created password 
-  return passCreate;
 };
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
@@ -94,7 +96,7 @@ function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUpperc
       passNew += passSet[(Math.floor(Math.random() * passSet.length))];
     }
     // recursive call to ensure newly created password meets at least one of each criteria chosen
-    checkCriteria(passNew, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength)
+    checkCriteria(passNew, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength);
   }
  return passNew;
 };
