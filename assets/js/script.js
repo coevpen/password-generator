@@ -77,7 +77,6 @@ function generatePassword(){
 
     //return the created password 
     return passCreate;
-  }
 };
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
