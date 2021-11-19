@@ -82,9 +82,9 @@ function generatePassword(){
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
 function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength){
-  // empty string in case a new passwords needs to be written
-  var passNew = "";
 
+  // empty string in case a new password needs to be written
+  var passNew = "";
 
   // checks for at least one of the cirteria needed, if none exist, creates a new password that does
   if(confirmChar && !(charSet.some(v => passCreated.includes(v)))){
