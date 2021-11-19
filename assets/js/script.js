@@ -45,7 +45,6 @@ function generatePassword(){
  }
 
   /* prompt user for special characters
-    "Click OK to confirm including special characters"
     if true, randomly choose special characters
   */
  var confirmChar = window.confirm("Click OK to confirm including special characters");
@@ -67,11 +66,12 @@ function generatePassword(){
 
 // checks to ensure at least one of each criteria chosen is met. if not, fixes it
 function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength){
-  let index = 0;
+  // empty string in case a new passwords needs to be written
   var passNew = "";
 
   console.log(passCreated);
 
+  // checks for at least one of the cirteria needed, if none exist, creates a new password that does
   if(confirmChar && !(charSet.some(v => passCreated.includes(v)))){
     console.log("Entered add a char");
     passNew += charSet[(Math.floor(Math.random() * charSet.length))];
@@ -93,15 +93,18 @@ function checkCriteria(passCreated, confirmChar, confirmLowercase, confirmUpperc
     console.log("add a uppercase: passnew is: " + passNew);
   }
   else {
+    // returns original password as it has at least oen of all criteria picked
     console.log("returning original password");
     return passCreated;
   }
   
+  // if the new password created isn't the length it needs to be, randomly add the criteria chosen until it is the length requested
   if(passNew.length < userLength){
     console.log("new password created. enter for loop");
     for(var i = passNew.length; i < userLength; i++){
       passNew += passSet[(Math.floor(Math.random() * passSet.length))];
     }
+    // recursive call to ensure newly created password meets at least one of the each criteria chosen
     checkCriteria(passNew, confirmChar, confirmLowercase, confirmUppercase, confirmNum, userLength)
   }
 
@@ -116,7 +119,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-  
   passwordText.value = password;
 
 };
