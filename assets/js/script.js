@@ -120,6 +120,10 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
+
+  // clears password variables in case user doesn't click clear button before generating a new password
+  passCreate = "";
+  password = "";
 };
 
 // Add event listener to generate button
